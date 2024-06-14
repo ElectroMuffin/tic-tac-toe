@@ -177,7 +177,24 @@ while True:
     winner = check_winner()
     if winner:
         print(f"{winner} wins!")
-        break
+        play_again = input("Do you want to play again? (y/n)")
+        if play_again == "y" or play_again == "Y":
+            a1 = empty_space
+            a2 = empty_space
+            a3 = empty_space
+            b1 = empty_space
+            b2 = empty_space
+            b3 = empty_space
+            c1 = empty_space
+            c2 = empty_space
+            c3 = empty_space
+            continue
+        elif play_again == "n" or play_again == "N":
+            print("Exiting...")
+            exit()
+        else:
+            print("Not a valid answer\nExiting...")
+            exit()
 
     if turn == "X":
         turn = "O"
