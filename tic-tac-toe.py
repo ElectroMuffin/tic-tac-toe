@@ -52,6 +52,34 @@ def check_winner():
     return None
 
 
+def check_draw():
+    if a1 != empty_space and a2 != empty_space and a3 != empty_space and b1 != empty_space and b2 != empty_space and b3 != empty_space and c1 != empty_space and c2 != empty_space and c3 != empty_space:
+        return "Draw"
+    else:
+        return None
+        
+def replay():
+    play_again = input("Do you want to play again? (y/n): ")
+    if play_again.lower() == "y":
+        global a1, a2, a3, b1, b2, b3, c1, c2, c3, turn
+        a1 = empty_space
+        a2 = empty_space
+        a3 = empty_space
+        b1 = empty_space
+        b2 = empty_space
+        b3 = empty_space
+        c1 = empty_space
+        c2 = empty_space
+        c3 = empty_space
+        turn = "X"
+        return "Yes"
+    elif play_again == "n" or play_again == "N":
+        print("Exiting...")
+        exit()
+    else:
+        print("Not a valid answer\nExiting...")
+        exit()
+
 while True:
     board_state = f"  1 2 3\na {a1} {a2} {a3}\nb {b1} {b2} {b3}\nc {c1} {c2} {c3}"
     print(board_state)
@@ -174,27 +202,18 @@ while True:
             print("This coordinate does not exist!")
             continue
 
+    check_winner()
     winner = check_winner()
     if winner:
+        print(board_state)
         print(f"{winner} wins!")
-        play_again = input("Do you want to play again? (y/n)")
-        if play_again == "y" or play_again == "Y":
-            a1 = empty_space
-            a2 = empty_space
-            a3 = empty_space
-            b1 = empty_space
-            b2 = empty_space
-            b3 = empty_space
-            c1 = empty_space
-            c2 = empty_space
-            c3 = empty_space
-            continue
-        elif play_again == "n" or play_again == "N":
-            print("Exiting...")
-            exit()
-        else:
-            print("Not a valid answer\nExiting...")
-            exit()
+        replay()
+        
+    check_draw()
+    is_draw = check_draw()
+    if is_draw:
+        print("It's a draw")
+        replay()
 
     if turn == "X":
         turn = "O"
@@ -203,3 +222,9 @@ while True:
     else:
         print("ERROR 1 - unknown turn")
         exit()
+
+
+    if winner and is_draw:
+        restart = replay()
+        if restart == "Yes":
+            continue
